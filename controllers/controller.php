@@ -24,6 +24,7 @@ class Controller
      
     protected function _setView($viewName)
     {
+        $movies = $this->_model->getMovies();
         $this->_view = new View(HOME . DS . 'views' . DS . strtolower($this->_modelBaseName) . DS . $viewName . '.tpl');
     }
 }

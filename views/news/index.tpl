@@ -12,13 +12,12 @@
         <h1>News articles</h1>
  
         <?php 
-        //include HOME . DS . 'models' . DS . 'newsmodel.php';
             if ($movies):
             foreach ($movies as $a): ?>
  
             <movie>
                 <header>
-                    <h1><a href="/news/details/<?php echo $a['movie_title']; ?>"><?php echo $a['movie_title']; ?></a></h1>
+                    <h1><a href="/news/details/<?php echo $a['movie_id']; ?>"><?php echo $a['movie_title']; ?></a></h1>
                     <p><?php echo $a['movie_description']; ?></p>
                     <p>Published on: <time pubdate="pubdate"><?php echo $a['movie_time']; ?></time></p>
                 </header>

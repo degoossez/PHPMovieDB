@@ -1,5 +1,4 @@
 <?php
-      echo("model");
 class Model 
 {
     protected $_db;

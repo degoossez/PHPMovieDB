@@ -13,7 +13,7 @@ class newsController extends Controller
 		{
 		try {
 			$movies = $this->_model->getMovies();
-			$this->_view->set('articles', $movies);
+			$this->_view->set('movies', $movies);
 			$this->_view->set('title', 'News articles from the database');
 			return $this->_view->output();
 		} 
@@ -22,18 +22,16 @@ class newsController extends Controller
 			echo "Application error:" . $e->getMessage();
 		}
 	}
-	//needs editing for movies!
     public function details($movieId)
     {
         try {
-             
             $movie = $this->_model->getMoviesById((int)$movieId);
              
             if ($movie)
             {
                 $this->_view->set('title', $movie['movie_title']);
-                $this->_view->set('articleBody', $movie['movie_article']);
-                $this->_view->set('datePublished', $movie['movie_time']);
+                $this->_view->set('articleBody', $movie['movie_description']);
+                $this->_view->set('duration', $movie['movie_time']);
             }
             else
             {
@@ -47,7 +45,6 @@ class newsController extends Controller
             echo "Application error:" . $e->getMessage();
         }
     }
-    // End
 }
 ?>
      

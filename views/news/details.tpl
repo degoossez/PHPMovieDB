@@ -11,7 +11,7 @@
          
         <article>
             <header>
-                <h1><?php echo $movie_title; ?></h1>
+                <h1><?php echo $movie_id;?></h1>
                 <p>Published on: <time pubdate="pubdate"><?php echo $movie_time; ?></time></p>
             </header>
             <p>

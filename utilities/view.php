@@ -1,6 +1,4 @@
 <?php
-      echo("view");
-
 class View
 {
     protected $_file;
