@@ -1,8 +1,10 @@
 <?php
 
-include '/opt/lampp/htdocs/MovieDB/controllers/newscontroller.php';
+include '/opt/lampp/htdocs/MovieDB/controllers/homecontroller.php';
+include '/opt/lampp/htdocs/MovieDB/controllers/regcontroller.php';
+include '/opt/lampp/htdocs/MovieDB/controllers/logincontroller.php';
 
-$controller = "news";
+$controller = "home";
 $action = "index";
 $query = null;
 
@@ -33,7 +35,6 @@ else
 	die('Invalid method. Please check the URL.');
 }
 ?>
-
 
 
 
