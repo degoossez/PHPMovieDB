@@ -25,6 +25,17 @@
         }
          ?>
         </p>
+<div class="span3">
+                  <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                      <li class="nav-header">Genres</li>
+            <?php
+            foreach ($genres as $a): ?>
+                      <li><a href="/home/genres/<?php echo $a['genre_id']; ?>"><?php echo $a['genre_name']; ?></a></li>
+            <?php 
+            endforeach; ?>
+        </div>
+    </div>
         <?php
             if ($movies):
             foreach ($movies as $a): ?>
@@ -47,6 +58,7 @@
         <p>We currently do not have any articles.</p>
  
         <?php endif; ?>
+
          
     </body>
 </html>

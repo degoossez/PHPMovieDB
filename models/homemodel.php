@@ -44,6 +44,44 @@ class homeModel extends Model
          
         return $movieDetails;
     }
+    public function getGenres()
+    {
+        $sql = "SELECT
+                        *   
+                FROM 
+                    genres
+                ORDER BY genre_name ASC";
+         
+        $this->_setSql($sql);
+        $genres = $this->getAll();
+         
+        if (empty($genres))
+        {
+            return false;
+        }
+         
+        return $genres;
+    }
+    public function getMoviesIdByGenreId($genreid)
+    {
+        $sql = "SELECT
+                        *   
+                FROM 
+                    genres
+                WHERE
+                    genre_id = $genreid";
+         
+        $this->_setSql($sql);
+        $genres = $this->getAll();
+         
+        if (empty($genres))
+        {
+            return false;
+        }
+         
+        return $genres;
+    }
+
 }
 
 ?>

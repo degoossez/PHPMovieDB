@@ -12,6 +12,8 @@ class homeController extends Controller
 	public function index()
 		{
 		try {
+                            $Genres = $this->_model->getGenres();
+                $this->_view->set('genres', $Genres);
 			$movies = $this->_model->getMovies();
 			$this->_view->set('movies', $movies);
 			$this->_view->set('title', "Dries' Movie Database");
@@ -29,6 +31,8 @@ class homeController extends Controller
              
             if ($movie)
             {
+                $Genres = $this->_model->getGenres();
+                $this->_view->set('genres', $Genres);
                 $this->_view->set('title', "Dries' Movie Database");
                 $this->_view->set('movie_title', $movie['movie_title']);
                 $this->_view->set('movie_description', $movie['movie_description']);
@@ -36,6 +40,8 @@ class homeController extends Controller
             }
             else
             {
+                $Genres = $this->_model->getGenres();
+                $this->_view->set('genres', $Genres);
                 $this->_view->set('title', "Dries' Movie Database");
                 $this->_view->set('movie_title', 'Invalid article ID');
                 $this->_view->set('noArticle', true);
@@ -44,6 +50,19 @@ class homeController extends Controller
             return $this->_view->output();
               
         } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
+    public function genres($genreid)
+        {
+        try {
+            $movies = $this->_model->getMoviesIdByGenreId($genreid);
+            $this->_view->set('movies', $movies);
+            $this->_view->set('title', "Dries' Movie Database");
+            return $this->_view->output();
+        } 
+        catch (Exception $e) 
+        {
             echo "Application error:" . $e->getMessage();
         }
     }
