@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8" />
         <title><?php echo $title; ?></title>
-              <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+              <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     </head>
     <body>
      
@@ -32,14 +32,18 @@
                     <ul class="nav nav-list">
                       <li class="nav-header">Genres</li>
             <?php
-            foreach ($movies as $a): ?>
+            foreach ($genres as $a): ?>
                       <li><a href="/home/genres/<?php echo $a['genre_id']; ?>"><?php echo $a['genre_name']; ?></a></li>
             <?php 
             endforeach; ?>
         </div>
     </div>
             </movie>
-
+            <?php
+            foreach ($movies as $a): ?>
+                      <ul><a href="/home/details/<?php echo $a['movie_id']; ?>"><?php echo $a['movie_title']; ?></a></ul>
+            <?php 
+            endforeach; ?>
 
          
     </body>

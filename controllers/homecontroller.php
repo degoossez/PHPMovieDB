@@ -12,8 +12,8 @@ class homeController extends Controller
 	public function index()
 		{
 		try {
-                            $Genres = $this->_model->getGenres();
-                $this->_view->set('genres', $Genres);
+            $Genres = $this->_model->getGenres();
+            $this->_view->set('genres', $Genres);
 			$movies = $this->_model->getMovies();
 			$this->_view->set('movies', $movies);
 			$this->_view->set('title', "Dries' Movie Database");
@@ -56,14 +56,26 @@ class homeController extends Controller
     public function genres($genreid)
         {
         try {
-            $movies = $this->_model->getMoviesIdByGenreId($genreid);
+            $moviesids = $this->_model->getMoviesIdByGenreId($genreid);
+            for($i=0;$i<count($moviesids);$i++)
+               {
+                    $movies[] = $this->_model->getMoviesById($moviesids[$i]['movie_id']);
+               } 
             $this->_view->set('movies', $movies);
+            $Genres = $this->_model->getGenres();
+            $this->_view->set('genres', $Genres);
             $this->_view->set('title', "Dries' Movie Database");
             return $this->_view->output();
         } 
         catch (Exception $e) 
         {
-            echo "Application error:" . $e->getMessage();
+            $this->_setView('index');
+            $Genres = $this->_model->getGenres();
+            $this->_view->set('genres', $Genres);
+            $movies = $this->_model->getMovies();
+            $this->_view->set('movies', $movies);
+            $this->_view->set('title', "Dries' Movie Database");
+            return $this->_view->output();
         }
     }
 }

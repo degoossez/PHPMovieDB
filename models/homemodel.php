@@ -65,23 +65,59 @@ class homeModel extends Model
     public function getMoviesIdByGenreId($genreid)
     {
         $sql = "SELECT
-                        *   
+                    movie_id   
                 FROM 
-                    genres
+                    movgen
                 WHERE
                     genre_id = $genreid";
          
         $this->_setSql($sql);
-        $genres = $this->getAll();
+        $movies = $this->getAll();
          
-        if (empty($genres))
+        if (empty($movies))
         {
             return false;
         }
          
-        return $genres;
+        return $movies;
     }
+    public function getActorsByMovieId($movieid)
+    {
+        $sql = "SELECT
+                    actor_id
+                FROM
+                    movact
+                WHERE
+                    movie_id = $movieid";
+        $this->setSql($sql);
+        $actors = $this->getAll();
 
+        if(empty($actors))
+        {
+            return false;
+        }
+        return $actors;
+    }
+    public function getActorsById($actor_id)
+    {
+        $sql = "SELECT
+                    actor_name,
+                    actor_birth
+                FROM 
+                    actors
+                WHERE
+                    actor_id = $actor_id";
+         
+        $this->_setSql($sql);
+        $actorDetails = $this->getRow(array($actor_id));
+         
+        if (empty($actorDetails))
+        {
+            return false;
+        }
+         
+        return $actorDetails;
+    }
 }
 
 ?>

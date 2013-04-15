@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8" />
         <title><?php echo $title; ?></title>
-              <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+              <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     </head>
     <body>
      
@@ -36,19 +36,17 @@
             endforeach; ?>
         </div>
     </div>
+    <div class="row-fluid">
         <?php
             if ($movies):
             foreach ($movies as $a): ?>
- 
+            
             <movie>
-                <header>
-                    <h1><a href="/home/details/<?php echo $a['movie_id']; ?>"><?php echo $a['movie_title']; ?></a></h1>
-                    <p><?php echo $a['movie_description']; ?></p>
-                    <p>Published on: <time pubdate="pubdate"><?php echo $a['movie_time']; ?></time></p>
-                </header>
-                <p><?php echo $a['movie_title']; ?></p>
-                <p><a href="/home/details/<?php echo $a['movie_id']; ?>">Continue reading</a></p>
-                <hr/>
+            <div class="span4">
+              <h3><?php echo $a['movie_title']; ?></h3>
+              <p> <?php echo $a['movie_description']; ?></p>
+              <p><a class="btn" href="/home/details/<?php echo $a['movie_id']; ?>">View details »</a></p>
+            </div>
             </movie>
         <?php 
             endforeach;
@@ -58,7 +56,10 @@
         <p>We currently do not have any articles.</p>
  
         <?php endif; ?>
-
+    </div>
          
     </body>
 </html>
+
+
+

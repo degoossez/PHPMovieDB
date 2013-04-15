@@ -9,7 +9,17 @@
     <body>
      
         <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
-        
+        <div class="span3">
+                  <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                      <li class="nav-header">Genres</li>
+            <?php
+            foreach ($genres as $a): ?>
+                      <li><a href="/home/genres/<?php echo $a['genre_id']; ?>"><?php echo $a['genre_name']; ?></a></li>
+            <?php 
+            endforeach; ?>
+                </div>
+        </div>        
          <p align="right">
         <?php 
         $sid = session_id();
