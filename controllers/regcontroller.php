@@ -12,14 +12,18 @@ class RegController extends Controller
 		    if (!isset($_POST['regFormSubmit']))
 		    {
 		        header('Location: /reg/index');
+		        exit();
 		    }
 		     
 		    $errors = array();
 		    $check = true;
 		         
-		    $username = isset($_POST['username']) ? trim($_POST['username']) : "";
-		    $email = isset($_POST['email']) ? trim($_POST['email']) : "";
-		    $password = isset($_POST['password']) ? trim($_POST['password']) : "";
+		    $username = isset($_POST['username']);
+		    $username = strip_tags($_POST['username']);
+		    $email = isset($_POST['email']);
+		    $email = strip_tags($_POST['email']);
+		    $password = isset($_POST['password']);
+		    $password = strip_tags($_POST['password']);
 		         
 		    if (empty($email))
 		    {

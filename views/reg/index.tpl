@@ -27,7 +27,7 @@
         }
         ?>
 
-        <form action="/reg/save" method="post">
+        <form action="/reg/save" method="post" class="form-signin">
  
             <p>
                 <label for="username">User Name:</label>

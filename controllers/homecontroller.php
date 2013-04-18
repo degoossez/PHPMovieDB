@@ -14,8 +14,24 @@ class homeController extends Controller
 		try {
             $Genres = $this->_model->getGenres();
             $this->_view->set('genres', $Genres);
-			$movies = $this->_model->getMovies();
+			$movies = $this->_model->getMovies2();
+            $counter = 0;
+            $actors = array();
+            foreach($movies as $m)
+            {
+                $actors[$counter] = array();
+                $actorids = $this->_model->getActorsByMovieId($m['movie_id']);
+
+                $counter2 = 0;
+                foreach($actorids as $a)
+                {
+                    $actors[$counter][$counter2] = $this->_model->getActorsById($a['actor_id']);
+                    $counter2++;
+                }
+                $counter++;
+            }
 			$this->_view->set('movies', $movies);
+            $this->_view->set('actors', $actors);
 			$this->_view->set('title', "Dries' Movie Database");
 			return $this->_view->output();
 		} 
@@ -72,8 +88,10 @@ class homeController extends Controller
             $this->_setView('index');
             $Genres = $this->_model->getGenres();
             $this->_view->set('genres', $Genres);
+            /*
             $movies = $this->_model->getMovies();
             $this->_view->set('movies', $movies);
+            */
             $this->_view->set('title', "Dries' Movie Database");
             return $this->_view->output();
         }

@@ -39,21 +39,38 @@
     <div class="row-fluid">
         <?php
             if ($movies):
-            foreach ($movies as $a): ?>
+            $counter=0;
+            foreach ($movies as $a):
+            $counter2=0; ?>
             
             <movie>
             <div class="span4">
-              <h3><?php echo $a['movie_title']; ?></h3>
-              <p> <?php echo $a['movie_description']; ?></p>
-              <p><a class="btn" href="/home/details/<?php echo $a['movie_id']; ?>">View details »</a></p>
+                <dl>
+                    <dt>
+                        <p class ="lead">
+                              <?php echo $a['movie_title']; ?>
+                              <small><?php echo "(" .$a['movie_year'].")"; ?></small>
+                        </p>
+                    </dt>
+                        <dd>
+                            <?php foreach ($actors[$counter] as $act){ ?>
+                             <a href="/home/actors/<?php echo($act['actor_id']);?>"><?php if($counter2!=0) { echo(" , "); };echo $act['actor_name']; ?>
+                             <?php $counter2++; };?>
+                            </a>
+                        </dd>   
+                        <dd>                  
+                              <p> <?php echo $a['movie_description']; ?></p>
+                              <p><a class="btn" href="/home/details/<?php echo $a['movie_id']; ?>">View details »</a></p>
+                        </dd>
+              </dl>
             </div>
             </movie>
         <?php 
+            $counter++;
             endforeach;
             else: ?>
  
-        <h1>Welcome!</h1>
-        <p>We currently do not have any articles.</p>
+        <p>We currently do not have any movies from your selection.</p>
  
         <?php endif; ?>
     </div>

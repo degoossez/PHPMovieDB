@@ -13,14 +13,18 @@ class LoginController extends Controller
 	{
 			if (!isset($_POST['loginFormSubmit']))
 		    {
-		        header('Location: /reg/index');
+		        header('Location: /login/index');
+		        exit();
 		    }
 			if (!isset($_POST['username']) || !isset($_POST['password'])) {
 				echo 'You have to give password and account name.';
 				exit;
 			} 
-			$username = $this->_model->getUserByName($_POST['username']);
-			$pass = $this->_model->getPassword($_POST['password']);
+			$name = strip_tags($_POST['username']);
+			$password = strip_tags($_POST['password']);
+
+			$username = $this->_model->getUserByName($name);
+			$pass = $this->_model->getPassword($password);
 			if($username == FALSE || $pass==FALSE)
 			{
 				echo("Pass and/or accountname is wrong!");
@@ -29,10 +33,10 @@ class LoginController extends Controller
 			{
 				if ($username && $pass) {
 				session_start();
-				$_SESSION['username'] = $_POST['username'];
+				$_SESSION['username'] = $name;
 							$this->_setView('succes');
 							$this->_view->set('title','Logged In');
-							$this->_view->set('username', $_POST['username']);
+							$this->_view->set('username', $name);
 							return $this->_view->output();
 				}		
 			}

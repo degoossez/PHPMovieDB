@@ -9,7 +9,25 @@ class homeModel extends Model
                         *   
                 FROM 
                     movies
-                ORDER BY movie_title DESC";
+                ORDER BY movie_year ASC";
+         
+        $this->_setSql($sql);
+        $movies = $this->getAll();
+         
+        if (empty($movies))
+        {
+            return false;
+        }
+         
+        return $movies;
+    }
+    public function getMovies2()
+    {
+        $sql = "SELECT
+                        *   
+                FROM 
+                    movies
+                ORDER BY movie_id ASC";
          
         $this->_setSql($sql);
         $movies = $this->getAll();
@@ -89,7 +107,7 @@ class homeModel extends Model
                     movact
                 WHERE
                     movie_id = $movieid";
-        $this->setSql($sql);
+        $this->_setSql($sql);
         $actors = $this->getAll();
 
         if(empty($actors))
@@ -101,10 +119,11 @@ class homeModel extends Model
     public function getActorsById($actor_id)
     {
         $sql = "SELECT
+                    actor_id,
                     actor_name,
                     actor_birth
                 FROM 
-                    actors
+                    actor
                 WHERE
                     actor_id = $actor_id";
          
