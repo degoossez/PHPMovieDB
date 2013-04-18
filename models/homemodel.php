@@ -43,10 +43,7 @@ class homeModel extends Model
     public function getMoviesById($movie_id)
     {
         $sql = "SELECT
-                    movie_id,
-                    movie_title,
-                    movie_time,
-					movie_description
+                    *
                 FROM 
                     movies
                 WHERE 
@@ -98,6 +95,45 @@ class homeModel extends Model
         }
          
         return $movies;
+    }
+    public function getGenresIdByMovieId($movie_id)
+    {
+        $sql = "SELECT
+                    genre_id 
+                FROM 
+                    movgen
+                WHERE
+                    movie_id = $movie_id";
+         
+        $this->_setSql($sql);
+        $genres = $this->getAll();
+         
+        if (empty($genres))
+        {
+            return false;
+        }
+         
+        return $genres;
+    }
+    public function getGenresById($genre_id)
+    {
+        $sql = "SELECT
+                    genre_id,
+                    genre_name
+                FROM 
+                    genres
+                WHERE
+                    genre_id = $genre_id";
+         
+        $this->_setSql($sql);
+        $genrename = $this->getAll();
+         
+        if (empty($genrename))
+        {
+            return false;
+        }
+         
+        return $genrename;        
     }
     public function getActorsByMovieId($movieid)
     {

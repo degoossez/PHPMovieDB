@@ -47,12 +47,28 @@ class homeController extends Controller
              
             if ($movie)
             {
+                $counter=0;
+                $moviegenres = array();
+                $genresid = $this->_model->getGenresIdByMovieId((int)$movieId);
+                foreach($genresid as $gid)
+                {
+                    $moviegenres[$counter] = $this->_model->getGenresById($gid['genre_id']);
+                    $counter++;
+                } 
+                $counter1=0;
+                $actors = array();
+                $actorsid = $this->_model->getActorsByMovieId((int)$movieId);
+                foreach($actorsid as $aid)
+                {
+                    $actors[$counter1] = $this->_model->getActorsById($aid['actor_id']);
+                    $counter1++;
+                }
                 $Genres = $this->_model->getGenres();
+                $this->_view->set('moviegen', $moviegenres);
+                $this->_view->set('actors', $actors);
                 $this->_view->set('genres', $Genres);
                 $this->_view->set('title', "Dries' Movie Database");
-                $this->_view->set('movie_title', $movie['movie_title']);
-                $this->_view->set('movie_description', $movie['movie_description']);
-                $this->_view->set('movie_time', $movie['movie_time']);
+                $this->_view->set('movie', $movie);
             }
             else
             {
@@ -70,28 +86,41 @@ class homeController extends Controller
         }
     }
     public function genres($genreid)
-        {
+    {
         try {
-            $moviesids = $this->_model->getMoviesIdByGenreId($genreid);
-            for($i=0;$i<count($moviesids);$i++)
-               {
-                    $movies[] = $this->_model->getMoviesById($moviesids[$i]['movie_id']);
-               } 
-            $this->_view->set('movies', $movies);
-            $Genres = $this->_model->getGenres();
-            $this->_view->set('genres', $Genres);
-            $this->_view->set('title', "Dries' Movie Database");
-            return $this->_view->output();
+
+                $moviesids = $this->_model->getMoviesIdByGenreId($genreid);
+                for($i=0;$i<count($moviesids);$i++)
+                   {
+                        $movies[] = $this->_model->getMoviesById($moviesids[$i]['movie_id']);
+                   } 
+                $actors = array();
+                $counter=0;
+                foreach($movies as $m)
+                {
+                    $actors[$counter] = array();
+                    $actorids = $this->_model->getActorsByMovieId($m['movie_id']);
+
+                    $counter2 = 0;
+                    foreach($actorids as $a)
+                    {
+                        $actors[$counter][$counter2] = $this->_model->getActorsById($a['actor_id']);
+                        $counter2++;
+                    }
+                    $counter++;
+                }
+                $Genres = $this->_model->getGenres();
+                $this->_view->set('actors', $actors);
+                $this->_view->set('movies', $movies);
+                $this->_view->set('genres', $Genres);
+                $this->_view->set('title', "Dries' Movie Database");
+                return $this->_view->output();
         } 
         catch (Exception $e) 
         {
             $this->_setView('index');
             $Genres = $this->_model->getGenres();
             $this->_view->set('genres', $Genres);
-            /*
-            $movies = $this->_model->getMovies();
-            $this->_view->set('movies', $movies);
-            */
             $this->_view->set('title', "Dries' Movie Database");
             return $this->_view->output();
         }
