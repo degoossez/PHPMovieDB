@@ -9,7 +9,7 @@ class homeModel extends Model
                         *   
                 FROM 
                     movies
-                ORDER BY movie_year ASC";
+                ORDER BY movie_year DESC";
          
         $this->_setSql($sql);
         $movies = $this->getAll();
@@ -157,7 +157,8 @@ class homeModel extends Model
         $sql = "SELECT
                     actor_id,
                     actor_name,
-                    actor_birth
+                    actor_birth,
+                    actor_pic
                 FROM 
                     actor
                 WHERE
@@ -172,6 +173,93 @@ class homeModel extends Model
         }
          
         return $actorDetails;
+    }
+    public function getMoviesIdByActorId($actorid)
+    {
+        $sql = "SELECT
+                    movie_id   
+                FROM 
+                    movact
+                WHERE
+                    actor_id = $actorid";
+         
+        $this->_setSql($sql);
+        $movies = $this->getAll();
+         
+        if (empty($movies))
+        {
+            return false;
+        }
+         
+        return $movies;
+    }
+    public function getCommentsIdByMovieId($movieid)
+    {
+        $sql = "SELECT
+                    comment_id
+                FROM
+                    movcom
+                WHERE
+                    movie_id = $movieid";
+        $this->_setSql($sql);
+        $commentsid = $this->getAll();
+
+        if(empty($commentsid))
+        {
+            return false;
+        }
+        return $commentsid;
+    }
+    public function getCommentsById($commentId)
+    {
+        $sql = "SELECT
+                    *
+                FROM
+                    comments
+                WHERE
+                    comment_id = $commentId";
+        $this->_setSql($sql);
+        $comment = $this->getAll();
+
+        if(empty($comment))
+        {
+            return false;
+        }
+        return $comment;        
+    }
+    public function getVotesByMovieId($movie_id)
+    {
+        $sql = "SELECT
+                    votes_rating
+                FROM 
+                    votes
+                WHERE
+                    movie_id = $movie_id";
+         
+        $this->_setSql($sql);
+        $votes = $this->getAll();
+         
+        if (empty($votes))
+        {
+            return false;
+        }
+         
+        return $votes;
+    }  
+    public function storerating($movieid,$rating)
+    {
+        $sql = "INSERT INTO votes
+                    (movie_id, votes_rating)
+                VALUES
+                    ( ?, ?)";
+         
+        $data = array(
+            $movieid,
+            $rating
+        );
+         
+        $sth = $this->_db->prepare($sql);
+        return $sth->execute($data);
     }
 }
 

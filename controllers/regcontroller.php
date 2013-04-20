@@ -4,7 +4,7 @@ class RegController extends Controller
 {
 		public function index()
 		{
-			$this->_view->set('title', 'News articles from the database');
+			$this->_view->set('title', "Dries' Movie Database");
 			return $this->_view->output();
 		}
 		public function save()
@@ -83,9 +83,4 @@ class RegController extends Controller
 		 
 		    return $this->_view->output();
 		}
-
-
-
-
-
 }

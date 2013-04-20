@@ -3,6 +3,7 @@
 include '/opt/lampp/htdocs/MovieDB/controllers/homecontroller.php';
 include '/opt/lampp/htdocs/MovieDB/controllers/regcontroller.php';
 include '/opt/lampp/htdocs/MovieDB/controllers/logincontroller.php';
+include '/opt/lampp/htdocs/MovieDB/controllers/commentcontroller.php';
 
 $controller = "home";
 $action = "index";

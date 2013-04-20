@@ -9,6 +9,8 @@
     <body>
      
         <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
+      <div class="row-fluid">
+      <div class="span12">
         <div class="span3">
                   <div class="well sidebar-nav">
                     <ul class="nav nav-list">
@@ -34,30 +36,64 @@
         }
          ?>
         </p>
-         
-        <article>
+        <div class="span9">
             <header>
                 <h1><?php echo $movie['movie_title'];?></h1>
             </header>
-            <p>
-                 <?php $counter=0; foreach ($moviegen as $movgen){ ?>
-                 <a href="/home/genres/<?php echo($movgen[0]['genre_id']);?>"><?php if($counter!=0) { echo(" , "); };echo $movgen[0]['genre_name']; ?>
-                 <?php $counter++; };?>
-                 </a>
-            </p>
+              <p>
+            <div class="span6">
+                   <?php $counter2=0; foreach ($actors as $act){ ?>
+                   <a href="/home/actors/<?php echo($act['actor_id']);?>"><?php if($counter2!=0) { echo(" , "); };echo $act['actor_name']; ?>
+                   <?php $counter2++; };?>
+                   </a>
+              </p>
                 <p>Duration:<?php echo $movie['movie_time']; ?></p>
-                <img src="<?php echo $movie['movie_pic']; ?>" hight="250" width="150">
+            </div>
+            <div class="span6">
+              <p>
+                <?php echo $movie['movie_description']; echo " " . $movie['movie_year']; ?>
+                <br>
+                <?php $counter=0; foreach ($moviegen as $movgen){ ?>
+                <a href="/home/genres/<?php echo($movgen[0]['genre_id']);?>"><?php if($counter!=0) { echo(" , "); };echo $movgen[0]['genre_name']; ?>
+                <?php $counter++; };?>
+                </a>
+                   <form action="/comment/addcomment/<?php echo $movie['movie_id']?>" method="post">  
+                          <label>Comment :</label>
+                          <div span="span12">
+                          <textarea class="span12" rows="5" name="commentdata" type="text" value="" size="9"></textarea>  
+                          </div>
+                          <div span="span3">
+                          <input type="submit" name="commentFormSubmit" value="Comment"> 
+                          </div> 
+                   </form>  
+                    <div class="span9"> 
+                        <h3>Comment section</h3>
+                         <?php if($comments) { $counter=0; foreach ($comments as $c): ?>
+                                  <p>
+                                  <p><h4><?php echo $c[0]['comment_user']?></h4><strong><?php echo $c[0]['comment_date'] ?></strong></p>
+                                  <em><?php echo '"' .$c[0]['comment_data'] . '"'; $counter++; ?><em>
+                                  <p>
+                                    <hr>
+                          <?php 
+                          endforeach; 
+                        }
+                        else {?>
+                        <p><h4>There are no comments, be the first to place a comment!</h4></p>
+                        <?php };?>
+                      <a href="/">Back</a>        
+                    </div> 
+              </p>
+              <br>
+            </div>
+            <div class="span5" align="right">
+                <img src="<?php echo $movie['movie_pic']; ?>" hight="500" width="350">
+            </div> 
+        </div>
+        <? echo $av;?>
+        <a href="/home/addrating/<?php echo ($movie['movie_id'] . ".1");?>"><i class="icon-star-empty" ></i></a>
+      
+    </div>
+</div>
 
-            <p>
-                 <?php $counter2=0; foreach ($actors as $act){ ?>
-                 <a href="/home/actors/<?php echo($act['actor_id']);?>"><?php if($counter2!=0) { echo(" , "); };echo $act['actor_name']; ?>
-                 <?php $counter2++; };?>
-                 </a>
-            </p>
-            <?php echo $movie['movie_description']; ?>
-        </article>
-         
-        <a href="/">Back to article list</a>
-         
     </body>
 </html>
