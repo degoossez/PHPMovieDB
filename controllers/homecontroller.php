@@ -59,6 +59,10 @@ class homeController extends Controller
                        } 
                     $av = $total/$count;
                     $this->_view->set('av', $av);
+                }
+                else
+                {
+                    $this->_view->set('av', FALSE);
                 }                
                 $commentids = $this->_model->getCommentsIdByMovieId($movieId);
                 if($commentids)
@@ -215,25 +219,57 @@ class homeController extends Controller
             if (!$check)
             {
                 $this->_setView('voted');
-                $this->_view->set('movied',$movieid);
+                $this->_view->set('movieid',$movieid);
                 $Genres = $this->_model->getGenres();
                 $this->_view->set('genres', $Genres);
                 $this->_view->set('title', "Dries' Movie Database");
-                return $this->_view->output();  
+                //return $this->_view->output();  
             }  
             $this->_model->storerating($movieid,$rating);   
             $this->_setView('voted');
-            $this->_view->set('movied',$movieid);
+            $this->_view->set('movieid',$movieid);
             $Genres = $this->_model->getGenres();
             $this->_view->set('genres', $Genres);
             $this->_view->set('title', "Dries' Movie Database");
-            return $this->_view->output();        
+            return $this->_view->output();       
 
         } 
         catch (Exception $e) 
         {
             echo "Application error:" . $e->getMessage();
         }
+    }
+    public function searchActors($input)
+    {
+        if($input)
+        {
+            $actors = $this->_model->searchActors($input);
+            if(!$actors)
+            {
+                $actors = FALSE;
+            }
+        }
+        else
+        {
+            $search = FALSE;
+        }
+        return $search;
+    }
+    public function searchMovies($input)
+    {
+        if($input)
+        {
+            $movies = $this->_model->searchMovies($input);
+            if(!$movies)
+            {
+                $movies = FALSE;
+            }
+        }
+        else
+        {
+            $search = FALSE;
+        }
+        return $search;
     }
 }
 ?>

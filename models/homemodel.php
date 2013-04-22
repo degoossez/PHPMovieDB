@@ -261,6 +261,39 @@ class homeModel extends Model
         $sth = $this->_db->prepare($sql);
         return $sth->execute($data);
     }
+    public function searchActors($input)
+    {
+        $sql = "SELECT * 
+                FROM  `actor` 
+                WHERE  `actor_name` LIKE  '%$input%'";
+         
+        $this->_setSql($sql);
+        $actor = $this->getAll();
+         
+        if (empty($actor))
+        {
+            return false;
+        }
+         
+        return $actor;        
+    }
+    public function searchMovies($input)
+    {
+        $sql = "SELECT * 
+                FROM  `movies` 
+                WHERE  `movie_title` LIKE  '%$input%'
+                OR `movie_title` LIKE '%$input%'";
+         
+        $this->_setSql($sql);
+        $movie = $this->getAll();
+         
+        if (empty($movie))
+        {
+            return false;
+        }
+         
+        return $movie;        
+    }
 }
 
 ?>

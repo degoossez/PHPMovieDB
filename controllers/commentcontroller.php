@@ -49,6 +49,7 @@ class CommentController extends Controller
                 $this->_view->set('errors', $errors);
                 $this->_view->set('formData', $_POST);
                 $this->_view->set('movieid', $movieid);
+
                 return $this->_view->output();
             }  
             try {

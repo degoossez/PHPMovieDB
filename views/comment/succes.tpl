@@ -10,11 +10,11 @@
     <body>
      
         <?php include HOME . DS .  'includes' . DS . 'menu.inc.php'; ?>
-         
+     
         <h1><?php echo $msg; ?></h1>
-        <h2>You added the comment</h2>
+        <h4>You added the comment</h4>
         <p><?php echo $commentData['comment']?></p>
         <p><a href="/home/details/<?php echo $movieid; ?>" >Back</a>
-         
+
     </body>
 </html>

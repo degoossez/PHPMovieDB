@@ -47,7 +47,14 @@
                    <?php $counter2++; };?>
                    </a>
               </p>
-                <p>Duration:<?php echo $movie['movie_time']; ?></p>
+                <div class="span3"><p>Duration:<?php echo $movie['movie_time']; ?></p></div>
+                <div class="span6"> <?php if(!$av) { $av=0; };?> Rating: <?php for($counter=1;$counter<=($av/2);$counter++) { ?>
+                  <a href="/home/addrating/<?php echo ($movie['movie_id'] . "." .($counter*2));?>"><i class="icon-star" ></i></a> 
+                  <?php }; 
+                  for($counter2=$av/2+1;$counter2>($av/2) && $counter2 < 6;$counter2++) { ?>
+                  <a href="/home/addrating/<?php echo ($movie['movie_id'] . "." .($counter2*2));?>"><i class="icon-star-empty" ></i></a> 
+                  <?php };?>
+                </div>
             </div>
             <div class="span6">
               <p>
@@ -88,10 +95,7 @@
             <div class="span5" align="right">
                 <img src="<?php echo $movie['movie_pic']; ?>" hight="500" width="350">
             </div> 
-        </div>
-        <? echo $av;?>
-        <a href="/home/addrating/<?php echo ($movie['movie_id'] . ".1");?>"><i class="icon-star-empty" ></i></a>
-      
+        </div>      
     </div>
 </div>
 
