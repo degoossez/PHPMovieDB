@@ -24,8 +24,8 @@
                 <button class ="btn" type="submit" name="logoffFormSubmit" value="Log Out">Sign Off</button>
                 </form>
                 <form class="navbar-form pull-right" action="/login/check" method="post">
-                <input class ="span2" name="username" type="text" value="" placeholder="username" size="9">
-                <input class ="span2" name="password" type="password" value="" placeholder="Password" ="9">
+                <input class ="span2" name="username" type="text" value="" placeholder="username">
+                <input class ="span2" name="password" type="password" value="" placeholder="Password">
                 <button type="submit" class="btn" name="loginFormSubmit" value="Log in">Sign In</button>  
                 </form>
             </div>

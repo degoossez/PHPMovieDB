@@ -12,13 +12,17 @@
 
     <div class="row-fluid">
         <div class="span12">
-            <div class="span3">
-                          <div class="well sidebar-nav">
-                            <ul class="nav nav-list">
-                              <li class="nav-header">Genres</li>
+            <div class="span3"> 
+                <div class="well sidebar-nav">
+                    <form  action="/home/search" method="post">
+                        <input class ="span8" name="searchquery" type="text" value="" placeholder="Type here">
+                         <button type="submit" class="btn" name="searchFormSubmit" value="Search">Search</button> 
+                    </form>
+                        <ul class="nav nav-list">
+                        <li class="nav-header">Genres</li>
                     <?php
                     foreach ($genres as $a): ?>
-                              <li><a href="/home/genres/<?php echo $a['genre_id']; ?>"><?php echo $a['genre_name']; ?></a></li>
+                        <li><a href="/home/genres/<?php echo $a['genre_id']; ?>"><?php echo $a['genre_name']; ?></a></li>
                     <?php 
                     endforeach; ?>
                 </div>

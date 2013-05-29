@@ -39,7 +39,24 @@ class homeModel extends Model
          
         return $movies;
     }
-     
+    public function getMoviesOrderByTitle()
+    {
+        $sql = "SELECT
+                        *   
+                FROM 
+                    movies
+                ORDER BY movie_title DESC";
+         
+        $this->_setSql($sql);
+        $movies = $this->getAll();
+         
+        if (empty($movies))
+        {
+            return false;
+        }
+         
+        return $movies;
+    } 
     public function getMoviesById($movie_id)
     {
         $sql = "SELECT
@@ -134,6 +151,22 @@ class homeModel extends Model
         }
          
         return $genrename;        
+    }
+    public function getActorsOrderByName()
+    {
+        $sql = "SELECT
+                        *   
+                FROM 
+                    actor
+                ORDER BY actor_name DESC";
+        $this->_setSql($sql);
+        $actors = $this->getAll();
+
+        if(empty($actors))
+        {
+            return false;
+        }
+        return $actors;
     }
     public function getActorsByMovieId($movieid)
     {
@@ -282,7 +315,7 @@ class homeModel extends Model
         $sql = "SELECT * 
                 FROM  `movies` 
                 WHERE  `movie_title` LIKE  '%$input%'
-                OR `movie_title` LIKE '%$input%'";
+                OR `movie_description` LIKE '%$input%'";
          
         $this->_setSql($sql);
         $movie = $this->getAll();

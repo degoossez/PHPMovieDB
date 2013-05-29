@@ -10,23 +10,15 @@
      
         <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
 
-         <p align="right">
-        <?php 
-        $sid = session_id();
-        if($sid) {
-        }
-        else {
-            session_start();
-            if (isset($_SESSION['username']))
-                echo 'Gebruiker is ingelogd met gebruikersnaam '.$_SESSION['username'];
-            else
-                echo 'Niet ingelogd!';
-        }
-         ?>
+
       <div class="row-fluid">
       <div class="span12">
           <div class="span3">
               <div class="well sidebar-nav">
+                    <form  action="/home/search" method="post">
+                        <input class ="span8" name="searchquery" type="text" value="" placeholder="Type here">
+                         <button type="submit" class="btn" name="searchFormSubmit" value="Search">Search</button> 
+                    </form>
                 <ul class="nav nav-list">
                   <li class="nav-header">Genres</li>
                     <?php
@@ -38,6 +30,20 @@
           </div>        
           <div class="row-fluid">
             <div class="span9">
+                       <p align="right">
+
+                      <?php 
+        $sid = session_id();
+        if($sid) {
+        }
+        else {
+            session_start();
+            if (isset($_SESSION['username']))
+                echo 'Gebruiker is ingelogd met gebruikersnaam '.$_SESSION['username'];
+            else
+                echo 'Niet ingelogd!';
+        }
+         ?>
             <div class="span7" style="margin-left: 50px">
               <h2 ><?php echo $actor['actor_name'];?></h2>
               <div class="span3">

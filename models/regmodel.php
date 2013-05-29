@@ -17,7 +17,7 @@ class RegModel extends Model
      
     public function setpassword($password)
     {
-        $this->_password = $password;
+        $this->_password = md5($password);
     }
      
     public function store()

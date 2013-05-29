@@ -14,6 +14,10 @@
         <div class="span12">
             <div class="span3">
                 <div class="well sidebar-nav">
+                    <form  action="/home/search" method="post">
+                        <input class ="span8" name="searchquery" type="text" value="" placeholder="Type here">
+                         <button type="submit" class="btn" name="searchFormSubmit" value="Search">Search</button> 
+                    </form>
                     <ul class="nav nav-list">
                         <li class="nav-header">Genres</li>
                     <?php

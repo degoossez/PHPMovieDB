@@ -24,6 +24,7 @@ class LoginModel extends Model
     }
     public function getPassword($password)
     {
+        $password = md5($password)
         $sql = "SELECT
                     password
                 FROM 

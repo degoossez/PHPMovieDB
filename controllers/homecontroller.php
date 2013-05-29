@@ -239,37 +239,66 @@ class homeController extends Controller
             echo "Application error:" . $e->getMessage();
         }
     }
-    public function searchActors($input)
+    public function search()
     {
+        if (!isset($_POST['searchFormSubmit']))
+        {
+            header('Location: /home/search');
+            exit();
+        }
+        if (!isset($_POST['searchquery'])) {
+            echo 'You have to give password and account name.';
+            exit;
+        } 
+        $input = strip_tags($_POST['searchquery']);
         if($input)
         {
-            $actors = $this->_model->searchActors($input);
-            if(!$actors)
+            $searchedActors = $this->_model->searchActors($input);
+            $movies = $this->_model->searchMovies($input);
+            if(!$movies)
+            {
+                $movies = FALSE;
+            }
+            if(!$searchedActors)
             {
                 $actors = FALSE;
             }
         }
         else
         {
-            $search = FALSE;
+            $movies = $this->_model->getMoviesOrderByTitle();
+            $searchedActors = $this->_model->getActorsOrderByName();
         }
-        return $search;
-    }
-    public function searchMovies($input)
-    {
-        if($input)
-        {
-            $movies = $this->_model->searchMovies($input);
-            if(!$movies)
+            $counter = 0;
+            $actors = array();
+            if($movies)
             {
-                $movies = FALSE;
+                foreach($movies as $m)
+                {
+                    $actors[$counter] = array();
+                    $actorids = $this->_model->getActorsByMovieId($m['movie_id']);
+
+                    $counter2 = 0;
+                    foreach($actorids as $a)
+                    {
+                        $actors[$counter][$counter2] = $this->_model->getActorsById($a['actor_id']);
+                        $counter2++;
+                    }
+                    $counter++;
+                }
+                $this->_view->set('movies', $movies);
+                $this->_view->set('actors', $actors);
             }
-        }
-        else
-        {
-            $search = FALSE;
-        }
-        return $search;
+            else
+            {
+                $this->_view->set('movies', FALSE);
+                $this->_view->set('actors', FALSE);
+            }
+            $Genres = $this->_model->getGenres();
+            $this->_view->set('searchedActor',$searchedActors);
+            $this->_view->set('genres', $Genres);
+            $this->_view->set('title', "Dries' Movie Database");
+            return $this->_view->output();
     }
 }
 ?>
